@@ -35,7 +35,7 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(forecast.response.status_code, 200)
 
     def test_invalid_key(self):
-        self.api_key = 'notarealkey'
+        self.api_key = 'not a real key'
 
         try:
             forecastio.load_forecast(
@@ -44,7 +44,7 @@ class EndToEnd(unittest.TestCase):
 
             self.assertTrue(False)  # the previous line should throw an exception
         except requests.exceptions.HTTPError as e:
-            self.assertRegexpMatches(str(e), '403 Client Error: Forbidden')
+            self.assertRegexpMatches(str(e), '400 Client Error: Bad Request')
 
     def test_invalid_param(self):
         self.lat = ''
